@@ -17,9 +17,28 @@ function App() {
   }
 
   //set list to a copy no longer including the deleted item
-  // const removeItem =(itemId) =>{
+  const deleteItem =(doneItem) =>{
+    setToDoList(toDoList.filter(item => item.id !== doneItem.id));
+  }
 
-  // };
+  const strikeItem =(currentItem) =>{
+    let newList = toDoList.map((item, idx)=> {
+      if(item.id === currentItem.id){
+        if (item.style === "line-through") {
+          return {id:item.id, name:item.name, style: ""}
+        } else {
+          return {id:item.id, name:item.name, style: "line-through"}
+        }
+      }
+      else{
+        return item;
+      }
+
+    });
+
+    setToDoList(newList);
+  }
+
 
   //textbox to add things
   //list with to do item and two buttons: checkbox, delete button
@@ -27,7 +46,7 @@ function App() {
     <div className="App">
       <h1>To do List</h1>
       <ItemCreator onNewItem={addItem}/>
-      <ItemDisplayer allItems={toDoList}/>
+      <ItemDisplayer allItems={toDoList} onRemoveItem={deleteItem} onCheckMark={strikeItem}/>
     
     </div>
   );

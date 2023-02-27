@@ -1,20 +1,24 @@
-import { useState } from 'react';
+import React from 'react';
 
 const ItemDisplayer = (props) =>{
-    const [currentList, setCurrentList] = useState(props.allItems);
+    let currentList = props.allItems;
 
-    const removeItem = (item) => {
-        console.log(item);
-        //setCurrentList(currentList.filter(a=>a.name !== item.name));
+    const removeItem = (i) => {
+        props.onRemoveItem(i);
+        console.log(currentList);
+    }
+
+    const checkItem = (i) =>{
+        props.onCheckMark(i);
     }
 
     return(
         <div className="main">
             {currentList.map((item,idx) =>(
-                <div key={idx} style={{fontStyle: item.style}}> 
+                <div key={idx} style={{textDecorationLine: item.style}}> 
                     {item.name}
-                    <button>checkmark</button>
-                    {/* <button onClick={()=> removeItem(item)}> Delete</button> */}
+                    <input type="checkbox" onClick={()=>checkItem(item)}/>
+                    <button onClick={()=>removeItem(item)}>delete</button>
                 </div>
             ))
             
