@@ -3,19 +3,17 @@ import { useState } from 'react';
 import ItemCreator from './components/ItemCreator';
 import ItemDisplayer from './components/ItemDisplayer';
 
+let counter = 0;
+
 function App() {
   const[toDoList, setToDoList] = useState([]);
-  const [counter, setCounter] = useState(0);
 
   //each item will ned the name containing the text entered
   //an id to make it easier to access
   //style to update when checked/unchecked
   const addItem =(newItem) =>{
-    console.log(counter);
-    setToDoList([{id:counter, name: newItem,style: ""}, ...toDoList
+    setToDoList([{id:counter++, name: newItem,style: ""}, ...toDoList
     ]);
-    setCounter(counter+1);
-    console.log(counter);
   }
 
   //set list to a copy no longer including the deleted item
